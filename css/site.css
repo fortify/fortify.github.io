@@ -1,0 +1,222 @@
+
+body{
+  background-color: #f8f8f8;
+  font-family: "Metric";
+  font-size: 16px;
+}
+.content-container{
+  min-height: 700px;
+
+}
+.main-list{
+  margin-top: 350px;
+}
+.pages-container{
+  margin-top: 150px;
+}
+.navbar{
+  background-color: #0079ef;
+  height: 56px;
+  border: none;
+  border-radius: 0;
+  z-index: 999;
+  margin-bottom: 0;
+}
+.navbar .container-fluid{
+  text-align: center;
+}
+.navbar .container-fluid .mffod-logo{
+  position: absolute;
+  left: 0;
+  background-color: #00abf3;
+  height: 96px;
+  width: 96px;
+}
+.navbar .navbar-nav {
+  float: none;
+  display: inline-block;
+}
+.navbar .navbar-nav > li > a, .navbar .navbar-nav > li.dropdown > a {
+  color: #FFF;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  background-color: transparent;
+  letter-spacing: 1px;
+  padding: 15px 10px;
+}
+.navbar .navbar-nav > li > a, .navbar .navbar-nav > li.dropdown > a {
+  color: #FFF;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  background-color: transparent;
+  letter-spacing: 1px;
+  padding: 15px 10px;
+}
+.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li.dropdown > a:hover {
+  color: white;
+}
+.navbar .navbar-nav > li:after, .navbar .navbar-nav > li.dropdown:after {
+  content: ' ';
+  position: absolute;
+  height: 6px;
+  width: 0;
+  transition: width .3s ease;
+  left: 0;
+  right: 0;
+  top: 50px;
+  background: #ffffff;
+  margin: auto;
+}
+
+.navbar .navbar-nav > li:hover:after, .navbar .navbar-nav > li.dropdown:hover:after {
+  content: ' ';
+  width: 100%;
+  background: #fff;
+}
+.title-bar:before {
+  content: "";
+  position: absolute;
+  left: 360px;
+  top: 53px;
+  width: 212px;
+  height: 150px;
+  background: url(../img/styleguide_top.svg) no-repeat;
+  background-size: 212px auto;
+  opacity: 1;
+  transition: all .3s ease-in-out;
+}
+.title-bar{
+  position: fixed;
+  left: 0px;
+  top: 56px;
+  z-index: 3;
+  height: 160px;
+  width: 100%;
+  background-color:#0079ef;
+  transition: all .3s ease-in-out;
+  color: #fff;
+  margin-bottom: 200px;
+}
+.scroller.title-bar:before, .pages.title-bar:before {
+  position: absolute;
+  left: 360px;
+  top: 56px;
+  width: 56px;
+  height: 50px;
+  opacity: 0;
+}
+.scroller.title-bar, .pages.title-bar {
+  position: fixed;
+  left: 0px;
+  top: 56px;
+  width: 100%;
+  height: 40px;
+  background: #1668c1;
+}
+.title-bar .title{
+  transition: all .3s ease-in-out;
+  font-size: 56px;
+  letter-spacing: .4px;
+  left: 412px;
+  top: 99px;
+  height: 84px;
+  padding: 30px;
+  position: absolute;
+  line-height: 13px;
+  background-color: #323435;
+  text-transform: uppercase;
+}
+.scroller.title-bar .title, .pages.title-bar .title {
+  font-size: 24px;
+  letter-spacing: .4px;
+  line-height: 19px;
+  left: 96px;
+  top: 0px;
+  height: 40px;
+  padding: 10px;
+  position: absolute;
+  background-color: #323435;
+  text-transform: uppercase;
+}
+.disable-scroll.title-bar
+a{
+  color: #1668C1;
+  text-decoration: none;
+}
+a:hover{
+  color: #148bff;
+  text-decoration: none;
+}
+
+.active{
+  border-bottom: 6px solid #fff;
+}
+
+.article{
+  margin-top: 145px;
+
+}
+.panel .badge{
+  font-size: 14px;
+  line-height: 9px;
+  float: right;
+  height:20px;
+  margin: 5px;
+  padding: 5px;
+  border: none;
+  color: #fff;
+  background-color: #bdbec0;
+}
+.panel .content{
+  padding:20px;
+}
+h3{
+  margin-top: 5px;
+}
+.pages-panel{
+  min-height: 350px;
+  padding: 20px;
+}
+.pages-panel .container-fluid{
+  border-bottom: 1px solid #DCDEDF;
+  margin-bottom: 15px;
+  padding: 15px 10px 30px 70px;
+}
+.icons{
+  background: #231ca5;
+  color: #F1F2F3;
+  border-radius: 50%;
+  box-shadow: 2px 2px #DCDEDF;
+  height: 120px;
+  width: 120px;
+  padding: 27px 30px;
+  transition: all .3s ease-in-out;
+}
+.icons:hover{
+  background: #271782;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 2px 3px #BDBEC0;
+  height: 120px;
+  width: 120px;
+  padding: 27px 30px;
+}
+.centered{
+  text-align: center;
+}
+
+.footer{
+  background: #323435;
+  padding-top: 75px;
+  color: #fff;
+  width:100%;
+  height: 212px;
+  /* position: absolute; */
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.mf-logo{
+  height: 50px;
+  float: right;
+}

@@ -1,0 +1,24 @@
+--- 
+layout: container 
+---
+
+{% assign fortify = page.title | slice: 0,7 | downcase %}
+{% if fortify == 'fortify' %}
+    {% assign title = page.title | slice: 1,1000 %}
+{% else %}
+    {% assign title = page.title %}
+{% endif %}
+
+
+<!-- Page Contents -->
+<div class="panel article container">
+    <div class="title-bar pages">
+            <div class="title">
+                {{title}}
+            </div>
+    </div>
+    
+    <div class="content-container"> 
+        {{content}}
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ site.title }}</title>
+    <meta name="keywords" content="{{ site.keywords }}">
+    <meta name="description" content="{{ site.description }}">
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/dist/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/dist/fonts/qtm-fonts.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/dist/icons/qtm-icons.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/dist/icons/qtm-font-icons.css">
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <object class="mffod-logo" data="{{ site.baseurl }}/dist/img/fortify-icon.svg" type="image/svg+xml"></object>
+            <ul class="nav navbar-nav">
+                <li><a class="item {% if page.url == '/' %} active {% endif %}" href="{{ site.baseurl }}/">Home</a></li>
+                {% for node in site.pages reversed %} {% capture id %}{{ node.id | remove:'/' | downcase }}{% endcapture %}
+                {% if node.layout == 'page' %}
+                <li><a class="item {% if page.url == node.url %} active {% endif %}" href="{{ site.baseurl }}{{node.url}}">{{node.title}}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Page Contents -->
+    <div class="content-container"> 
+        {{content}}
+    </div>
+    <footer class="footer">
+        {% include footer.html %}
+    </footer>
+</body>
+<script src="{{ site.baseurl }}/dist/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(window).scroll(function() {    
+                var scroll = $(window).scrollTop();
+                if (scroll >= 10) {
+                    $(".title-bar").addClass("scroller");
+                } else {
+                    $(".title-bar").removeClass("scroller");
+                }
+            });
+    })
+</script>
+
+</html>

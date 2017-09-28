@@ -1,0 +1,18 @@
+{
+    "name": "fortify-os-gh-pages",
+    "version": "1.0.0",
+    "author": "Forrest Peterson <Forrest.Peterson@microfocus.com>",
+    "description": "The Github Pages site for Fortify open source repos.",
+    "scripts": {
+        "gulp": "gulp default"
+    },
+    "dependencies": {
+        "bootstrap": "3.3.7",
+        "jquery": "3.2.1",
+        "quantum-ux-bootstrap": "1.0.2"
+    },
+    "devDependencies": {
+        "gulp": "3.9.1",
+        "gulp-concat": "2.6.1"
+    }
+}

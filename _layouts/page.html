@@ -1,0 +1,50 @@
+--- 
+layout: container 
+---
+{% assign fortify = page.title | slice: 0,7 | downcase %}
+{% if fortify == 'fortify' %}
+    {% assign title = page.title | slice: 1,1000 %}
+{% else %}
+    {% assign title = page.title %}
+{% endif %}
+
+<div class="title-bar pages">
+    <div class="title">
+        F{{title}}
+    </div>
+</div>
+<div class="container pages-container">
+    <div class="row">
+            {% for node in site.posts %} {% capture id %}{{ node.id | remove:'/'| downcase }}{% endcapture %} 
+            {% if node.type == page.type %}
+            <div class="col-md-6">
+                <div id="{{id}}" class="panel pages-panel">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <a href="{{node.git}}" target="_blank">
+                                        <div class="icons">
+                                            <i class="qtm-font-icon qtm-icon-launch-external--16 qtm-icon-xxxlarge" title="Github"></i>
+                                        </div>  
+                                    </a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="{{site.baseurl}}{{node.documentation}}" target="_blank">
+                                        <div class="icons">
+                                            <i class="qtm-font-icon qtm-icon-document--16 qtm-icon-xxxlarge" title="Documents"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>    
+                        <div>
+                            <h2>{{node.title}}</h2>
+                            <h4 class="sub header">{{node.subtitle}}</h4>
+                        </div>
+                    {{ node.content }}
+                </div>
+            </div>
+            {% endif %} {% endfor %}
+    </div>
+    
+</div>
