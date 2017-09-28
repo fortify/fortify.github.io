@@ -5,4 +5,4 @@ fa-icon: rss
 output: true
 ---
 
-Welcome to the new landing page for keeping up with Fortify Engineerings Open Source components, tools, and announcements.  More coming soon.
+Welcome to the new landing page for keeping up with Fortify Engineering's Open Source components, tools, and announcements.  More coming soon.
