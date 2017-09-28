@@ -15,7 +15,6 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - css/Semantic-UI-CSS/readme.md
 
 #host: https://pages.github.hpe.com/eran-argaman
 
