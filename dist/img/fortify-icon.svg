@@ -13,7 +13,7 @@
 
     <style>
         .rgb-border{
-        fill: #00ABF3;
+        fill: #FFF;
         }
     </style>
     <defs
