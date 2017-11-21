@@ -7,8 +7,6 @@ output: true
 ---
 # Migration, Plugin Framework and Other Significant Changes
 
-```Note: This is a preview document for features to be released in 17.20 and is therefore subject to change. It is intended for internal use only```.
-
 - Fortify Software Security Center (SSC) introduces a new approach to its own configuration. The legacy configuration tool existing customers are used to (the Software Security Center Configuration Wizard) has been replaced with a new web interface for configuring, initializing, and migrating the server from within the application.
 - SSC now has a separate distribution WAR file for each supported application server instead a single bundle for all.
 - SSC 17.20 also introduces a new plugin framework that is designed to run third-party data parsing and bug tracker integrations.
