@@ -39,10 +39,10 @@ packages:
     mysql: []
     mysql-connector-java: []
 option_settings:
-  - namespace: aws:Elastic Beanstalk:command
+  - namespace: aws:elasticbeanstalk:command
     option_name: Timeout
     value: 500
-  - namespace:  aws:Elastic Beanstalk:container:tomcat:jvmoptions
+  - namespace:  aws:elasticbeanstalk:container:tomcat:jvmoptions
     option_name:  "JVM Options"
     value:  "-Dfortify.home=/var/fortify"
 commands:
@@ -60,7 +60,7 @@ Add the `.ebextensions` folder to your SSC war file:
 * `jar -cvf ssc.war .`
 
 #### Create Application on AWS
-From the [Elastic Beanstalk Console](https://console.aws.amazon.com/Elastic Beanstalk) click "create a new application" and use the following settings:
+From the [Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk) click "create a new application" and use the following settings:
 
 * Choose any names
 * `Tier: Web Server`
@@ -94,7 +94,7 @@ Now log into the EC2 Host as ec2-user.  The following `ssc_rds_mysql_init.sh` sc
 #!/bin/bash
 
 #Get and parse RDS variables
-JSON=$(sudo /opt/Elastic Beanstalk/bin/get-config environment)
+JSON=$(sudo /opt/elasticbeanstalk/bin/get-config environment)
 RDS_HOSTNAME=$(python -c "import sys, json; print(json.load(sys.stdin)['RDS_HOSTNAME'])" <<< """$JSON""")
 RDS_PORT=$(python -c "import sys, json; print(json.load(sys.stdin)['RDS_PORT'])" <<< """$JSON""")
 RDS_USERNAME=$(python -c "import sys, json; print(json.load(sys.stdin)['RDS_USERNAME'])" <<< """$JSON""")
@@ -145,13 +145,13 @@ EnvironmentConfigurationMetadata:
   DateCreated: '1515697710000'
   DateModified: '1515697710000'
 Platform:
-  PlatformArn: arn:aws:Elastic Beanstalk:us-west-2::platform/Tomcat 8 with Java 8 running on 64bit Amazon Linux/2.7.4
+  PlatformArn: arn:aws:elasticbeanstalk:us-west-2::platform/Tomcat 8 with Java 8 running on 64bit Amazon Linux/2.7.4
 OptionSettings:
-  aws:Elastic Beanstalk:environment:
-    ServiceRole: aws-Elastic Beanstalk-service-role
+  aws:elasticbeanstalk:environment:
+    ServiceRole: aws-elasticbeanstalk-service-role
     EnvironmentType: SingleInstance
   aws:autoscaling:launchconfiguration:
-    IamInstanceProfile: aws-Elastic Beanstalk-ec2-role
+    IamInstanceProfile: aws-elasticbeanstalk-ec2-role
     InstanceType: t2.large
   aws:rds:dbinstance:
     DBEngineVersion: 5.7.19
@@ -166,6 +166,6 @@ EnvironmentTier:
 Extensions:
   RDS.EBConsoleSnippet:
     Order: null
-    SourceLocation: https://s3.us-west-2.amazonaws.com/Elastic Beanstalk-env-resources-us-west-2/eb_snippets/rds/rds.json
+    SourceLocation: https://s3.us-west-2.amazonaws.com/elasticbeanstalk-env-resources-us-west-2/eb_snippets/rds/rds.json
 AWSConfigurationTemplateVersion: 1.1.0.0
 ```
