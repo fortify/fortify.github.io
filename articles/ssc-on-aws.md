@@ -5,10 +5,10 @@ layout: article
 permalink: /onprem/ssc-on-aws
 output: true
 ---
-# Deploying SSC on AWS ElasticBeanstalk
-Elastic Beanstalk will provision a tomcat server on EC2 and deploy the SSC war.  It will create and manage all required EC2 infrastructure including security groups, roles and networking.  Optionally you can also deploy an RDS DB that will have a lifecycle managed by Elastic Beanstalk, which is good for a demo or testing.  You may also provide your own DB.
+# Deploying SSC on AWS Elastic Beanstalk
+[Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) will provision a tomcat server on EC2 and deploy the SSC war.  It will create and manage all required EC2 infrastructure including security groups, roles and networking.  Optionally you can also deploy an RDS DB that will have a lifecycle managed by Elastic Beanstalk, which is good for a demo or testing.  You may also provide your own DB.
 
-This guide walks through setup to get a running SSC instance that can be configured from the SSC maintanence UI or autoconfigured.
+This guide walks through setup to get a running Fortify Software Security Center (SSC) instance that can be configured from the SSC Setup page user interface or automatically configured using the `autoconfig` file.
 
 You can follow along with this guide on the [AWS Console Web UI](https://aws.amazon.com/console/ "ui instructions") or you can run commands if you are familiar with the [AWS Command Line Interface](https://aws.amazon.com/cli/ "aws instuctions")
 
@@ -21,14 +21,16 @@ If you are not providing a DB then we can setup one on RDS.  SSC requires some c
  * `log_bin_trust_function_creators = 1`
  * `max_allowed_packet = 1073741824`
 
+> See the [Fortify Software Security Center User Guide](https://community.softwaregrp.com/t5/Fortify-Product-Documentation/ct-p/fortify-product-documentation) documentation for more information.
+
 Later you will apply this Parameter Group to the MySQL instance provisioned by RDS.
 
 ## SSC on Elastic Beanstalk
-After provisioning the default Tomcat server AWS will read from an [.ebextensions](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html "ebextensions docs") folder located in the root of a war file.  Below is a config file for the `.ebextensions` folder that will:
-* Specifies the `fortify.home` directory as `/var/fortify`
-* Installs a mysql connector and adds it to Tomcat
-* Installs a mysql client
-* Has an initialization script for RDS MySQL
+After provisioning the default Tomcat server AWS will read from an [.ebextensions](https://docs.aws.amazon.com/Elastic Beanstalk/latest/dg/ebextensions.html "ebextensions docs") folder located in the root of a war file.  Below is a config file for the `.ebextensions` folder that will:
+* Specify the `fortify.home` directory as `/var/fortify`
+* Install a mysql connector and adds it to Tomcat
+* Install a mysql client
+* Point to an initialization script for RDS MySQL
 
 You can either manually configure these items or create an `.ebextensions` folder in the war with this `ssc_eb.config` yaml.
 ```yaml
@@ -37,10 +39,10 @@ packages:
     mysql: []
     mysql-connector-java: []
 option_settings:
-  - namespace: aws:elasticbeanstalk:command
+  - namespace: aws:Elastic Beanstalk:command
     option_name: Timeout
     value: 500
-  - namespace:  aws:elasticbeanstalk:container:tomcat:jvmoptions
+  - namespace:  aws:Elastic Beanstalk:container:tomcat:jvmoptions
     option_name:  "JVM Options"
     value:  "-Dfortify.home=/var/fortify"
 commands:
@@ -58,7 +60,7 @@ Add the `.ebextensions` folder to your SSC war file:
 * `jar -cvf ssc.war .`
 
 #### Create Application on AWS
-From the [Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk) click "create a new application" and use the following settings:
+From the [Elastic Beanstalk Console](https://console.aws.amazon.com/Elastic Beanstalk) click "create a new application" and use the following settings:
 
 * Choose any names
 * `Tier: Web Server`
@@ -71,7 +73,7 @@ Select "Configure more options" and from the defaults change the following:
 * `Capacity > Single Instance`
 * `Security > your key pair`
 
-If you was a demo DB created:
+If you would like a demo DB created:
 * `Database >`
   * `Engine: mysql`
   * `Engine version: 5.7.19`
@@ -92,7 +94,7 @@ Now log into the EC2 Host as ec2-user.  The following `ssc_rds_mysql_init.sh` sc
 #!/bin/bash
 
 #Get and parse RDS variables
-JSON=$(sudo /opt/elasticbeanstalk/bin/get-config environment)
+JSON=$(sudo /opt/Elastic Beanstalk/bin/get-config environment)
 RDS_HOSTNAME=$(python -c "import sys, json; print(json.load(sys.stdin)['RDS_HOSTNAME'])" <<< """$JSON""")
 RDS_PORT=$(python -c "import sys, json; print(json.load(sys.stdin)['RDS_PORT'])" <<< """$JSON""")
 RDS_USERNAME=$(python -c "import sys, json; print(json.load(sys.stdin)['RDS_USERNAME'])" <<< """$JSON""")
@@ -143,13 +145,13 @@ EnvironmentConfigurationMetadata:
   DateCreated: '1515697710000'
   DateModified: '1515697710000'
 Platform:
-  PlatformArn: arn:aws:elasticbeanstalk:us-west-2::platform/Tomcat 8 with Java 8 running on 64bit Amazon Linux/2.7.4
+  PlatformArn: arn:aws:Elastic Beanstalk:us-west-2::platform/Tomcat 8 with Java 8 running on 64bit Amazon Linux/2.7.4
 OptionSettings:
-  aws:elasticbeanstalk:environment:
-    ServiceRole: aws-elasticbeanstalk-service-role
+  aws:Elastic Beanstalk:environment:
+    ServiceRole: aws-Elastic Beanstalk-service-role
     EnvironmentType: SingleInstance
   aws:autoscaling:launchconfiguration:
-    IamInstanceProfile: aws-elasticbeanstalk-ec2-role
+    IamInstanceProfile: aws-Elastic Beanstalk-ec2-role
     InstanceType: t2.large
   aws:rds:dbinstance:
     DBEngineVersion: 5.7.19
@@ -164,6 +166,6 @@ EnvironmentTier:
 Extensions:
   RDS.EBConsoleSnippet:
     Order: null
-    SourceLocation: https://s3.us-west-2.amazonaws.com/elasticbeanstalk-env-resources-us-west-2/eb_snippets/rds/rds.json
+    SourceLocation: https://s3.us-west-2.amazonaws.com/Elastic Beanstalk-env-resources-us-west-2/eb_snippets/rds/rds.json
 AWSConfigurationTemplateVersion: 1.1.0.0
 ```
