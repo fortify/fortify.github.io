@@ -1,38 +1,38 @@
----
-title: "SSC on AWS"
+,---
+title: "Fortify Software Security Center on Amazon Web Services"
 type: article
 layout: article
 permalink: /onprem/ssc-on-aws
 output: true
 ---
-# Deploying SSC on AWS Elastic Beanstalk
-[Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) will provision a tomcat server on EC2 and deploy the SSC war.  It will create and manage all required EC2 infrastructure including security groups, roles and networking.  Optionally you can also deploy an RDS DB that will have a lifecycle managed by Elastic Beanstalk, which is good for a demo or testing.  You may also provide your own DB.
+# Deploying Fortify Software Security Center on AWS Elastic Beanstalk
+[Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) will provision an Apache Tomcat server on EC2 and deploy the SSC war file. AWS Elastic Beanstalk will create and manage all required EC2 infrastructure, including security groups, roles, and networking.  You can also deploy an Amazon Relational Database Service (RDS) database with a lifecycle managed by Elastic Beanstalk. This is useful for demos or for testing.  Alternatively, you can provide your own database.
 
-This guide walks through setup to get a running Fortify Software Security Center (SSC) instance that can be configured from the SSC Setup page user interface or automatically configured using the `autoconfig` file.
+This guide takes you through the steps to set up a running Fortify Software Security Center (SSC) instance that you can either configure from the SSC Setup wizard user interface or configure automatically using the `autoconfig` file.
 
-You can follow along with this guide on the [AWS Console Web UI](https://aws.amazon.com/console/ "ui instructions") or you can run commands if you are familiar with the [AWS Command Line Interface](https://aws.amazon.com/cli/ "aws instuctions")
+You can follow along with this guide on the [AWS Console Web UI](https://aws.amazon.com/console/ "ui instructions"), or, if you are familiar with the [AWS Command Line Interface](https://aws.amazon.com/cli/ "aws instuctions"), you can run commands.
 
-## Prerequirements for AWS setup
+## Requirements for Amazon Web Services setup
 #### Key Pair
-You must be able to access the provisioned EC2 instance to finish setup so you need to have an AWS [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html "key pair guide").  This allows you to [connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html "how to connect to ec2") to an ec2 instance over ssh.
+Because you must be able to access the provisioned EC2 instance to finish setup, you must have an AWS [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html "key pair guide").  This enables you to [connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html "how to connect to ec2") to an EC2 instance over SSH.
 
-#### DB setup for RDS MySQL
-If you are not providing a DB then we can setup one on RDS.  SSC requires some configuration for MySQL that we can create with a [DB Parameter Group](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html#USER_WorkingWithParamGroups.Creating "create a DB Parameter Group").  The required parameters are:
+#### Database setup for Relational Database Service MySQL
+If you are not providing a database, you can set one up on RDS.  SSC requires some configuration for MySQL that you can create with a [DB Parameter Group](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html#USER_WorkingWithParamGroups.Creating "Creating a DB Parameter Group").  The required parameters are:
  * `log_bin_trust_function_creators = 1`
  * `max_allowed_packet = 1073741824`
 
-> See the [Fortify Software Security Center User Guide](https://community.softwaregrp.com/t5/Fortify-Product-Documentation/ct-p/fortify-product-documentation) documentation for more information.
+> For more information, see the [Fortify Software Security Center User Guide](https://community.softwaregrp.com/t5/Fortify-Product-Documentation/ct-p/fortify-product-documentation).
 
-Later you will apply this Parameter Group to the MySQL instance provisioned by RDS.
+Later, you will apply this DB parameter group to the MySQL instance provisioned by RDS.
 
-## SSC on Elastic Beanstalk
-After provisioning the default Tomcat server AWS will read from an [.ebextensions](https://docs.aws.amazon.com/Elastic Beanstalk/latest/dg/ebextensions.html "ebextensions docs") folder located in the root of a war file.  Below is a config file for the `.ebextensions` folder that will:
+## Software Security Center on Elastic Beanstalk
+After provisioning the default Tomcat server, AWS reads from an [.ebextensions](https://docs.aws.amazon.com/Elastic Beanstalk/latest/dg/ebextensions.html "ebextensions docs") folder located in the root of a war file.  The following is a configuration file for the `.ebextensions` folder that will:
 * Specify the `fortify.home` directory as `/var/fortify`
-* Install a mysql connector and adds it to Tomcat
+* Install a mysql connector and add it to Tomcat
 * Install a mysql client
 * Point to an initialization script for RDS MySQL
 
-You can either manually configure these items or create an `.ebextensions` folder in the war with this `ssc_eb.config` yaml.
+You can either manually configure these items, or create an `.ebextensions` folder in the war with the YAML `ssc_eb.config.`
 ```yaml
 packages:
   yum:
@@ -59,15 +59,15 @@ Add the `.ebextensions` folder to your SSC war file:
 * `jar -xvf ssc.war`
 * `jar -cvf ssc.war .`
 
-#### Create Application on AWS
-From the [Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk) click "create a new application" and use the following settings:
+#### Create an Application on AWS
+From the [Elastic Beanstalk Console](https://console.aws.amazon.com/elasticbeanstalk) click "Create a new application" and use the following settings:
 
 * Choose any names
 * `Tier: Web Server`
 * `Platform: Preconfigured Platform > Tomcat`
-* `Upload you code: ssc.war`
+* `Upload your code: ssc.war`
 
-Select "Configure more options" and from the defaults change the following:
+Select "Configure more options," and then from the defaults, change the following:
 
 * `Instances > t2.large` choose at least a large for performance
 * `Capacity > Single Instance`
@@ -83,12 +83,12 @@ If you would like a demo DB created:
 
 Create App.  This will provision an SSC server and a MySQL DB for a demo - the DB will be deleted with the Elastic Beanstalk environment.
 
-#### Initialize DB
-If RDS was used to provision a MySQL DB you must [modify](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ModifyInstance.MySQL.html "how to modify a MySQL DB instance") it by adding the parameter group created for SSC.
+#### Initialize the database
+If you used RDS to provision a MySQL DB, you must [modify](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ModifyInstance.MySQL.html "how to modify a MySQL DB instance") it by adding the parameter group created for SSC.
 
-From the [RDS Console](https://console.aws.amazon.com/rds) modify the DB instance from instance actions.  Under "Database options" select the SSC DB Parameter Group.  Click continue and choose to apply changes immediately. This may take a few minutes - you can see status by viewing the instance.  Once the change shows as "pending reboot", reboot the instance.
+From the [RDS Console](https://console.aws.amazon.com/rds), modify the DB instance from instance actions.  Under "Database options," select the SSC DB Parameter Group.  Click continue, and specify that you want to apply changes immediately. This may take a few minutes. You can see the status by viewing the instance.  Once the the status is "pending reboot," reboot the instance.
 
-Now log into the EC2 Host as ec2-user.  The following `ssc_rds_mysql_init.sh` script reads the provisioned RDS connection information then creates a `sscdemo` DB and runs the `create_tables.sql` script.
+Next, log in to the EC2 Host as ec2-user.  The following `ssc_rds_mysql_init.sh` script reads the provisioned RDS connection information, creates a `sscdemo` DB, and then runs the `create_tables.sql` script.
 
 ```bash
 #!/bin/bash
@@ -124,18 +124,18 @@ It can be run with:
 
 You now have a deployed SSC host and MySQL DB.
 
-#### Configure SSC
-While logged into the EC2 host get the init token with:
+#### Configure Fortify Software Security Center
+While logged into the EC2 host, get the init token with:
 
 `cat /var/fortify/_default_/init.token`
 
-Now you can log into your SSC instance and configure as usual.
+Now you can log in to your SSC instance and configure as you normally would.
 
 You can enable global search to:
 
 `/var/fortify`
 
-The DB connection string will be:
+The DB connection string is:
 
 `jdbc:mysql://HOST:3306/sscdemo?connectionCollation=latin1_general_cs&rewriteBatchedStatements=true`
 
