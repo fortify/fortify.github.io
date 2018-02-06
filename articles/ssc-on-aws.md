@@ -1,4 +1,4 @@
-,---
+---
 title: "Fortify Software Security Center on Amazon Web Services"
 type: article
 layout: article
