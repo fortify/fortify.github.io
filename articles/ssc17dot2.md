@@ -129,6 +129,13 @@ Parser plugins went through a major rewrite. They are now bundled with:
 * A view template to tell SSC how to show these fields.
 * The logic to map data from third-party file exports to these fields provided with bundles.
 
+#### Plugin Dependecies Note:
+If a plugin has any dependencies on javaEE packages, the plugin developer must bundle the necessary javaEE jars into the plugin's own library path, and must not rely on these packages being available from the JRE.  The JavaEE modules have been removed from current versions of Java post-Java8 in SSC 18.20.  
+ 
+Such packages include JAXB api and implementation, javax.activation, javax.annotation, javax.transaction, javax.xml.ws, and CORBA-related packages."
+ 
+In particular, the “Bundle-ClassPath” of their plugin bundle manifest should include the dependency javaEE jars and the jars themselves must be stored inside the bundle (typically in a “libs” folder along with any other libraries their plugin depends on). 
+
 ### Bug tracker
 You might be familiar with the bug tracker plugins SSC supplies, such as the JIRA plugin. These plugins where previously distributed inside the WAR file. During configuration, you would remove any unneeded plugins. That legacy process has been removed.
 
