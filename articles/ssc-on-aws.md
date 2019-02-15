@@ -32,7 +32,7 @@ After provisioning the default Tomcat server, AWS reads from an [.ebextensions](
 * Install a mysql client
 * Point to an initialization script for RDS MySQL
 
-You can either manually configure these items, or create an `.ebextensions` folder in the war with the YAML `ssc_eb.config.`
+You can either manually configure these items, or create an `.ebextensions` folder in the war with the YAML `ssc_eb.config`.
 ```yaml
 packages:
   yum:
