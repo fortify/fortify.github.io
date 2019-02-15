@@ -9,10 +9,10 @@
     "dependencies": {
         "bootstrap": "3.3.7",
         "jquery": "3.2.1",
-        "quantum-ux-bootstrap": "1.0.2"
+        "@micro-focus/quantum-ux-bootstrap": "1.0.21"
     },
     "devDependencies": {
-        "gulp": "3.9.1",
+        "gulp": "^4.0.0",
         "gulp-concat": "2.6.1"
     }
 }
