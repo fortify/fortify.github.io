@@ -7,7 +7,7 @@
         "gulp": "gulp default"
     },
     "dependencies": {
-        "bootstrap": "3.3.7",
+        "bootstrap": "4.3.1",
         "jquery": "3.2.1",
         "@micro-focus/quantum-ux-bootstrap": "1.0.21"
     },
