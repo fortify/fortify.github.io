@@ -26,7 +26,7 @@ If you are not providing a database, you can set one up on RDS.  SSC requires so
 Later, you will apply this DB parameter group to the MySQL instance provisioned by RDS.
 
 ## Software Security Center on Elastic Beanstalk
-After provisioning the default Tomcat server, AWS reads from an [.ebextensions](https://docs.aws.amazon.com/Elastic Beanstalk/latest/dg/ebextensions.html "ebextensions docs") folder located in the root of a war file.  The following is a configuration file for the `.ebextensions` folder that will:
+After provisioning the default Tomcat server, AWS reads from an [.ebextensions](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html "ebextensions docs") folder located in the root of a war file.  The following is a configuration file for the `.ebextensions` folder that will:
 * Specify the `fortify.home` directory as `/var/fortify`
 * Install a mysql connector and add it to Tomcat
 * Install a mysql client
